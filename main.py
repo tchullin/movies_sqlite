@@ -71,7 +71,7 @@ class Functions():
 
     def list_category(self):
         self.db_conect()
-        list = self.cursor.execute("""SELECT name FROM categories ORDER BY name ASC;""")
+        self.cursor.execute("""SELECT name FROM categories ORDER BY name ASC;""")
         result_search = self.cursor.fetchall()
         print(result_search)
         self.db_desconect()
@@ -79,7 +79,7 @@ class Functions():
 
     def list_director(self):
         self.db_conect()
-        list = self.cursor.execute("""SELECT name FROM directors ORDER BY name ASC;""")
+        self.cursor.execute("""SELECT name FROM directors ORDER BY name ASC;""")
         result_search_director = self.cursor.fetchall()
         print(result_search_director)
         self.db_desconect()
@@ -87,7 +87,7 @@ class Functions():
 
     def list_country(self):
         self.db_conect()
-        list = self.cursor.execute("""SELECT name FROM countries ORDER BY name ASC;""")
+        self.cursor.execute("""SELECT name FROM countries ORDER BY name ASC;""")
         result_search_country = self.cursor.fetchall()
         print(result_search_country)
         self.db_desconect()
