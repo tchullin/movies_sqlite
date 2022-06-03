@@ -20,10 +20,11 @@ class Functions():
     def db_conect(self):
         self.connection = sqlite3.connect('movies.db')
         self.cursor = self.connection.cursor()
-        print("connecting to database");
+        # print("connecting to database");
 
     def db_desconect(self):
-        self.connection.close();print("Desconnecting to database sqlite3");
+        self.connection.close()
+        # print("Desconnecting to database sqlite3");
 
     def create_table(self):
         self.db_conect();
@@ -69,29 +70,42 @@ class Functions():
     def tab_countries(self):
         exec(open("countries.py").read(), {'x': 10})
 
+    def tab_directors(self):
+        exec(open("directors.py").read(), {'x': 10})
+
     def list_category(self):
         self.db_conect()
-        self.cursor.execute("""SELECT name FROM categories ORDER BY name ASC;""")
-        result_search = self.cursor.fetchall()
-        print(result_search)
+        options = []
+        sql = 'SELECT * FROM categories ORDER BY name ASC;'
+        self.cursor.execute(sql)
+        ids = self.cursor.fetchall()
+        for i in ids:
+            options.append(i[1])
         self.db_desconect()
-        return result_search
+        return options
 
     def list_director(self):
         self.db_conect()
-        self.cursor.execute("""SELECT name FROM directors ORDER BY name ASC;""")
-        result_search_director = self.cursor.fetchall()
-        print(result_search_director)
+        options = []
+        sql = 'SELECT * FROM directors ORDER BY name ASC;'
+        self.cursor.execute(sql)
+        ids = self.cursor.fetchall()
+        for i in ids:
+            options.append(i[1])
         self.db_desconect()
-        return result_search_director
+        return options
+
 
     def list_country(self):
         self.db_conect()
-        self.cursor.execute("""SELECT name FROM countries ORDER BY name ASC;""")
-        result_search_country = self.cursor.fetchall()
-        print(result_search_country)
+        options = []
+        sql = 'SELECT * FROM countries ORDER BY name ASC;'
+        self.cursor.execute(sql)
+        ids = self.cursor.fetchall()
+        for i in ids:
+            options.append(i[1])
         self.db_desconect()
-        return result_search_country
+        return options
 
     def select_list(self):
         self.list_grid.tag_configure('oddrow', background="white")
@@ -168,9 +182,6 @@ class Aplication(Functions):
         self.Menus()
         self.create_table()
         self.select_list()
-        # self.tab_actors()
-        # self.tab_categories()
-        # self.tab_countries()
         self.list_category()
         self.list_director()
         self.list_country()
@@ -305,10 +316,10 @@ class Aplication(Functions):
         filemenu.add_command(label="actors",command=self.tab_actors)
         filemenu.add_command(label="categories", command=self.tab_categories)
         filemenu.add_command(label="countries", command=self.tab_countries)
+        filemenu.add_command(label="directors", command=self.tab_directors)
         filemenu.add_separator()
         filemenu.add_command(label="Sair", command=Quit)
         filemenu2.add_command(label="Clear campos", command=self.clear_entries)
-
 
 
 Aplication()
